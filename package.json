@@ -1,4 +1,10 @@
 {
+    "scripts": {
+        "grpc": "node protobuf.js",
+        "arango": "arangod",
+        "express": "node express.js"
+    },
+    "license": "ISC",
     "dependencies": {
         "@grpc/proto-loader": "^0.5.5",
         "arangojs": "^6.14.1",

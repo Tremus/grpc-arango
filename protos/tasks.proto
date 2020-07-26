@@ -1,0 +1,29 @@
+syntax = "proto3";
+package tasks;
+
+service TasksService {
+  rpc listTasks(Empty) returns (TaskList) {}
+  rpc getTask(TaskId) returns (Task) {}
+  rpc createTask(newTask) returns (response) {}
+  rpc updateTask(Task) returns (response) {}
+  rpc deleteTask(TaskId) returns (response) {}
+}
+
+message Empty {}
+
+message TaskList { repeated Task tasks = 1; }
+
+message TaskId { string _key = 1; }
+
+message Task {
+  string _id = 1;
+  string _key = 2;
+  string title = 3;
+  string description = 4;
+  bool completed = 5;
+  repeated Task subtasks = 6;
+}
+
+message newTask { string title = 1; }
+
+message response { string status = 1; }
