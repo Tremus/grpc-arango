@@ -1,8 +1,9 @@
 {
     "scripts": {
-        "grpc": "node protobuf.js",
+        "dev": "concurrently -n grpc,express -c magenta,white 'yarn grpc' 'yarn express'",
+        "grpc": "nodemon -w protobuf.js protobuf.js",
         "arango": "arangod",
-        "express": "node express.js"
+        "express": "nodemon -w express.js express.js"
     },
     "license": "ISC",
     "dependencies": {
@@ -12,5 +13,9 @@
         "express": "^4.17.1",
         "google-protobuf": "^4.0.0-rc.2",
         "grpc": "^1.24.3"
+    },
+    "devDependencies": {
+        "concurrently": "^5.2.0",
+        "nodemon": "^2.0.4"
     }
 }
