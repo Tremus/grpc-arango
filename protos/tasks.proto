@@ -4,12 +4,13 @@ package tasks;
 service TasksService {
   rpc listTasks(Empty) returns (TaskList) {}
   rpc getTask(TaskId) returns (Task) {}
-  rpc createTask(newTask) returns (response) {}
-  rpc updateTask(Task) returns (response) {}
+  rpc postTask(postTask) returns (Task) {}
+  rpc putTask(Task) returns (response) {}
   rpc deleteTask(TaskId) returns (response) {}
 }
 
 message Empty {}
+message response { string status = 1; }
 
 message TaskList { repeated Task tasks = 1; }
 
@@ -24,6 +25,11 @@ message Task {
   repeated Task subtasks = 6;
 }
 
-message newTask { string title = 1; }
+message postTask { string title = 1; }
 
-message response { string status = 1; }
+message putTaskBody {
+  string _key = 1;
+  string title = 2;
+  string description = 3;
+  bool completed = 4;
+}

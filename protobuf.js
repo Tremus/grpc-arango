@@ -29,6 +29,19 @@ const listTasks = (call, callback) => {
         .catch(err => callback(err));
 };
 
+const postTask = (call, callback) => {
+    const { title } = call.request;
+    const query = `
+        INSERT {
+            title: '${title}',
+            completed: false
+        } INTO tasks
+        RETURN NEW`;
+    db.query(query)
+        .then(cursor => callback(null, cursor._result[0]))
+        .catch(err => callback(err));
+};
+
 const getTask = (call, callback) => {
     const { _key } = call.request;
     const query = `RETURN DOCUMENT(CONCAT('tasks/', ${_key}))`;
@@ -38,8 +51,7 @@ const getTask = (call, callback) => {
 };
 
 // TODO
-const createTask = (call, callback) => {};
-const updateTask = (call, callback) => {};
+const putTask = (call, callback) => {};
 const deleteTask = (call, callback) => {};
 
 const main = () => {
@@ -47,8 +59,8 @@ const main = () => {
     server.addService(taskPackageDefinition.TasksService.service, {
         listTasks,
         getTask,
-        createTask,
-        updateTask,
+        postTask,
+        putTask,
         deleteTask,
     });
     server.bind('localhost:50051', grpc.ServerCredentials.createInsecure());

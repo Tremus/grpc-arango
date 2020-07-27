@@ -32,6 +32,10 @@ app.get('/tasks', (req, res) => {
     client.listTasks(getBody(req), callback(res));
 });
 
+app.post('/tasks', (req, res) => {
+    client.postTask(getBody(req), callback(res));
+});
+
 app.get('/tasks/:_key', (req, res) => {
     client.getTask(getBody(req), callback(res));
 });
