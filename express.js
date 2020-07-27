@@ -44,6 +44,10 @@ app.put('/tasks/:_key', (req, res) => {
     client.putTask(getBody(req), callback(res));
 });
 
+app.delete('/tasks/:_key', (req, res) => {
+    client.deleteTask(getBody(req), callback(res));
+});
+
 app.listen(3000, () => {
     console.log('Express server running at http://localhost:3000');
 });

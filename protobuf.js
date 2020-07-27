@@ -63,8 +63,15 @@ const putTask = (call, callback) => {
         .catch(err => callback(err));
 };
 
-// TODO
-const deleteTask = (call, callback) => {};
+const deleteTask = (call, callback) => {
+    const { _key } = call.request;
+    const query = `
+        REMOVE '${_key}' in tasks
+        RETURN OLD`;
+    db.query(query)
+        .then(cursor => callback(null, cursor._result[0]))
+        .catch(err => callback(err));
+};
 
 const main = () => {
     const server = new grpc.Server();
