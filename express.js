@@ -32,6 +32,10 @@ app.get('/tasks', (req, res) => {
     client.listTasks(getBody(req), callback(res));
 });
 
+app.get('/tasks/:_key', (req, res) => {
+    client.getTask(getBody(req), callback(res));
+});
+
 app.listen(3000, () => {
     console.log('Express server running at http://localhost:3000');
 });

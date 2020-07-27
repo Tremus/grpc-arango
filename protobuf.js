@@ -29,8 +29,15 @@ const listTasks = (call, callback) => {
         .catch(err => callback(err));
 };
 
+const getTask = (call, callback) => {
+    const { _key } = call.request;
+    const query = `RETURN DOCUMENT(CONCAT('tasks/', ${_key}))`;
+    db.query(query)
+        .then(cursor => callback(null, cursor._result[0]))
+        .catch(err => callback(err));
+};
+
 // TODO
-const getTask = (call, callback) => {};
 const createTask = (call, callback) => {};
 const updateTask = (call, callback) => {};
 const deleteTask = (call, callback) => {};
