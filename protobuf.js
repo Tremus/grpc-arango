@@ -50,8 +50,20 @@ const getTask = (call, callback) => {
         .catch(err => callback(err));
 };
 
+const putTask = (call, callback) => {
+    const { _key, ...partial } = call.request;
+    console.log(_key, partial);
+    const query = `
+        LET doc = DOCUMENT("tasks/${_key}")
+        UPDATE doc WITH @partial IN tasks
+        RETURN NEW
+    `;
+    db.query({ query, bindVars: { partial } })
+        .then(cursor => callback(null, cursor._result[0]))
+        .catch(err => callback(err));
+};
+
 // TODO
-const putTask = (call, callback) => {};
 const deleteTask = (call, callback) => {};
 
 const main = () => {

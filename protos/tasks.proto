@@ -5,12 +5,11 @@ service TasksService {
   rpc listTasks(Empty) returns (TaskList) {}
   rpc getTask(TaskId) returns (Task) {}
   rpc postTask(postTask) returns (Task) {}
-  rpc putTask(Task) returns (response) {}
-  rpc deleteTask(TaskId) returns (response) {}
+  rpc putTask(Task) returns (Task) {}
+  rpc deleteTask(TaskId) returns (Task) {}
 }
 
 message Empty {}
-message response { string status = 1; }
 
 message TaskList { repeated Task tasks = 1; }
 
